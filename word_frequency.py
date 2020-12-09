@@ -4,10 +4,42 @@ STOP_WORDS = [
     'will', 'with'
 ]
 
+punct = '''!()-[]{};:'"\, <>./?@#$%^&*_~'''
+
 
 def print_word_freq(file):
     """Read in `file` and print out the frequency of words in that file."""
-    pass
+    file = open(file)
+    words = file.read().lower()
+    
+
+    for ele in punct:
+           words = words.replace(ele, " ")
+        
+
+    wordslist = words.split()
+    
+
+    word_count =[]
+
+    for w in wordslist:
+        if w not in STOP_WORDS:
+            word_count.append(w)
+
+  
+    
+    word_frequency = {}
+
+    for w in word_count:
+        if w in word_frequency:
+            word_frequency[w] += 1
+        else:
+            word_frequency[w] = 1
+            
+
+    sorted_txt= sorted(word_frequency, key=word_frequency.get, reverse=True)
+    for num in sorted_txt:
+        print(num, word_frequency[num], '*' * word_frequency[num])
 
 
 if __name__ == "__main__":
